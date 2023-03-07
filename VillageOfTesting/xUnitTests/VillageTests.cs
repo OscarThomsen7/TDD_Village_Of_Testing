@@ -352,18 +352,15 @@ public class VillageTests
         Village village = new Village(random);
         
         objectMock.Setup(mock => mock.ReturnRandomNumber()).Returns(0);
-
-        var expected = random.ReturnRandomNumber();
-
-        var actual = village.AddRandomWorker(village._randomNumberGenerator);
+        
+        village.AddRandomWorker(village._randomNumberGenerator);
             
         village.Day();
 
         int expectedWood = 1;
 
         int actualWood = village.Wood;
-            
-        Assert.Equal(expected, actual);
+        
         Assert.Single(village.Workers);
         Assert.Equal(expectedWood, actualWood);
     }

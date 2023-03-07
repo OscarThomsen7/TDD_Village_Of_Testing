@@ -236,7 +236,7 @@ public class Village
         return false;
     }
 
-    public virtual int AddRandomWorker(RandomNumberGenerator randomNumberGenerator)
+    public void AddRandomWorker(RandomNumberGenerator randomNumberGenerator)
     {
         switch (randomNumberGenerator.ReturnRandomNumber())
         {
@@ -253,8 +253,6 @@ public class Village
                 AddWorker(Build);
                 break;
         }
-
-        return randomNumberGenerator.ReturnRandomNumber();
     }
     public void SaveProgress()
     {
