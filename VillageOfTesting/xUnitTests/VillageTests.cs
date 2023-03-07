@@ -339,7 +339,8 @@ public class VillageTests
 
         Village actual = village.LoadProgressForMockTest();
         
-        Assert.True(actual != null);Assert.Equal(10, actual.Wood);
+        Assert.True(actual != null);
+        Assert.Equal(10, actual.Wood);
     }
     
     
