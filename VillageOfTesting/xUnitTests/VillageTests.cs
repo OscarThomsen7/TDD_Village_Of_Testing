@@ -336,9 +336,7 @@ public class VillageTests
         DataBaseConnection dbMock = mockDatabaseConnection.Object;
         Village village = new Village(dbMock);
         mockDatabaseConnection.Setup(mock => mock.GetWood()).Returns(10);
-        
-        Village expected = MockLoadReturn();
-        
+
         Village actual = village.LoadProgressForMockTest();
         
         Assert.True(actual != null);Assert.Equal(10, actual.Wood);
@@ -371,23 +369,6 @@ public class VillageTests
     #endregion
     
     #region MethodsForTests
-    
-    private Village MockLoadReturn()
-    {
-        Mock<DataBaseConnection> objectMock = new Mock<DataBaseConnection>();
-        DataBaseConnection dbMock = objectMock.Object;
-        Village village = new Village(dbMock);
-        village.DaysPassed = 43;
-        village.HouseCount = 3;
-        village.WoodWorkerAmount = 1;
-        village.Food = 10;
-        village.Metal = 56;
-        village.Wood = 8;
-        village.NameNumber = 8;
-        village.FoodWorkerAmount = 5;
-        village.MetalWorkerAmount = 10;
-        return village;
-    }
     private void RunDayMethod(Village village, int iterations)
     {
         for (int i = 0; i < iterations; i++)
