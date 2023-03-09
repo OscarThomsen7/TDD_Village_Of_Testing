@@ -10,7 +10,7 @@ public class Building
     public bool Completed { get; set; }
     
     public Building(string type, int woodCost, 
-        int metalCost, int daysWorkedOn, int daysToComplete, bool complete)
+        int metalCost, int daysWorkedOn, int daysToComplete, bool complete) //Constructor that all buildings inherits.
     {
         Type = type;
         WoodCost = woodCost;
@@ -20,10 +20,4 @@ public class Building
         Completed = complete;
     }
 
-    public void BuildingInfo()
-    {
-        Console.WriteLine($"Type: {Type} \nWoodcost: {WoodCost} \nMetalcost: {MetalCost}" +
-                          $"\nDays worked on: {DaysWorkedOn} \nDays to complete: {DaysToComplete} days" +
-                          $"\nCompleted: {Completed}\n");
-    }
 }

@@ -8,7 +8,7 @@ public class Game
     private static DataBaseConnection DataBaseConnection = new DataBaseConnection();
     private static Village _village = new Village();
     private static bool playBool = true;
-    public void PlayGame()
+    public void PlayGame()//Method that plays the game
     {
         _village.LoadProgress();
         GameLoop();
@@ -16,6 +16,8 @@ public class Game
 
     #region Methods
 
+    
+    //lets player pick what worker to add
     private void AddWorkerToGame(int input)
     {
         Console.Clear();
@@ -44,6 +46,8 @@ public class Game
         }
     }
     
+    
+    //lets player pick a worker to change occupation
     private void PickWorkerToChange(Worker.OccupationDelegate occupationDelegate)
     {
         if (_village.Workers.Count > 0)
@@ -66,6 +70,8 @@ public class Game
             }
         }
     }
+    
+    //lets player pick what occupation to change to
     private Worker.OccupationDelegate PickOccupation(int input)
     {
         Worker.OccupationDelegate occupationDelegate = null;
@@ -93,6 +99,8 @@ public class Game
         return occupationDelegate;
     }
     
+    
+    //lets player add a new project
     private void AddProjectToGame()
     {
         Console.Clear();
@@ -136,6 +144,8 @@ public class Game
         }
     }
 
+    
+    //lets player pass multiple days at once by taking a number as input
     private void Play()
     {
         Console.WriteLine("Input how many days you want to pass");
@@ -154,6 +164,8 @@ public class Game
         }
     }
     
+    
+    //displays the rules of the game
     private void OutputRules()
     {
         Console.WriteLine("------------------------------------------------------------------------------------------------------------------------" +
@@ -174,6 +186,8 @@ public class Game
                           "------------------------------------------------------------------------------------------------------------------------");
     }
 
+    
+    //checks how many of each worker there are in the list
     private int Workers(string occupation)
     {
         int amount = 0;
@@ -187,6 +201,7 @@ public class Game
         return amount;
     }
     
+    //checks how many of each building there are in the list
     private int Buildings(string type)
     {
         int amount = 0;
@@ -200,6 +215,8 @@ public class Game
         return amount;
     }
 
+    
+    //checks if any workers are hungry. If so, they are displayed in the game window as a warning
     private void HungryWorkers()
     {
         Console.ForegroundColor = ConsoleColor.Red;
@@ -214,6 +231,8 @@ public class Game
     }
 
 
+    
+    //Shows all info about the game, for example: days passed, what workers player has or how much food there is left
     private void GameInfo()
     {
         Console.Clear();
@@ -236,6 +255,8 @@ public class Game
         HungryWorkers();
     }
 
+    
+    //This is the menu of the game where the player can make choices that affects resources and so on.
     private  void GameLoop()
     {
         //DataBaseConnection dataBaseConnection = new DataBaseConnection();

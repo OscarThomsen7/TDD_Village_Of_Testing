@@ -6,6 +6,8 @@ public class DataBaseConnection
 {   
     private static string _dataBaseString = "Data Source=DataBase.sqlite";
     
+    
+    //Saves data to DB
 	public void Save(List<Worker> workers, List<Building> buildings, List<Building> projects, Village village)
 	{
 		CreateDatabase();
@@ -14,6 +16,8 @@ public class DataBaseConnection
 		SaveBuilding(buildings);
 		SaveProject(projects);
 	}
+	
+	//Creates DB
 	public void CreateDatabase()
     {
 	    if (!File.Exists("./DataBase.sqlite"))
@@ -28,6 +32,8 @@ public class DataBaseConnection
 		    connection.Close();
 	    }
     }
+	
+	//Create village table
     public void CreateVillageTable()
     {
 		SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -47,6 +53,9 @@ public class DataBaseConnection
 	    command.ExecuteNonQuery();
 	    connection.Close();
     }
+    
+    
+    //Create workers table
     private void CreateWorkersTable()
     {
 		SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -61,6 +70,8 @@ public class DataBaseConnection
 	    command.ExecuteNonQuery();
 	    connection.Close();
     }
+    
+    //Create buildings table
     private void CreateBuildingsTable()
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -77,6 +88,8 @@ public class DataBaseConnection
 	    command.ExecuteNonQuery();
 	    connection.Close();
     }
+    
+    //Create projects table
     private void CreateProjectsTable()
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -93,6 +106,8 @@ public class DataBaseConnection
 	    command.ExecuteNonQuery();
 	    connection.Close();
     }
+    
+    //Deletes data
     public void DeleteRows()
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -113,6 +128,8 @@ public class DataBaseConnection
 
 	    connection.Close();
     }
+    
+    //Saves worker
     public void SaveWorker(List<Worker> workers)
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -130,6 +147,7 @@ public class DataBaseConnection
 		    connection.Close();
 	    }
     }
+    //Saves project
     public void SaveProject(List<Building> buildings)
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -149,6 +167,8 @@ public class DataBaseConnection
 		    connection.Close();   
 	    }
     }
+    
+    //Saves building
     public void SaveBuilding(List<Building> buildings)
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -168,6 +188,8 @@ public class DataBaseConnection
 		    connection.Close();
 	    }
     }
+    
+    //Saves village
     public void SaveVillage(Village village)
     {
 	    int count = 0;
@@ -191,6 +213,8 @@ public class DataBaseConnection
 	    command.ExecuteNonQuery();
 	    connection.Close();
     }
+    
+    //loads worker
     public void LoadWorker(Village village) //Works
     {
 	    Worker.OccupationDelegate occupationDelegate = null;
@@ -229,6 +253,8 @@ public class DataBaseConnection
 	    }
 	    connection.Close();
     }
+    
+    //loads building
     public void LoadBuilding(Village village)
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -251,6 +277,8 @@ public class DataBaseConnection
 	    }
 	    connection.Close();
     }
+    
+    //loads project
     public void LoadProject(Village village)
     {
 	    SqliteConnection connection = new SqliteConnection(_dataBaseString);
@@ -273,6 +301,8 @@ public class DataBaseConnection
 	    }
 	    connection.Close();
     }
+    
+    //loads village
     public void Load(Village village)
     {
 	    CreateDatabase();

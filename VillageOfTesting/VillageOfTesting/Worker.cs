@@ -9,6 +9,8 @@ public class Worker
     public int DaysHungry { get; set; }
     public delegate void OccupationDelegate(); 
     private OccupationDelegate _occupationDelegate;
+    
+    //Constructor sets name, occupation and a delegate that will contain 1 of the worker functions of the village
     public Worker(string name, string occupation, OccupationDelegate occupationDelegate)
     {
         Name = name;
@@ -16,7 +18,11 @@ public class Worker
         _occupationDelegate = occupationDelegate;
     }
     
-    public void DoWork() //Works
+    
+    
+    //Function is called when a worker is supposed to work, this function then calls the delegate that contains the work function from the village class.
+    //if the worker is hungry or dead no work will be done.
+    public void DoWork()
     {
         if (Alive == false)
         {
@@ -31,18 +37,23 @@ public class Worker
         _occupationDelegate();
     }
 
+    
+    //Resets workers hunger stats
     public void FeedWorker()
     {
         Hungry = false;
         DaysHungry = 0;
     }
 
+    
+    //Kills worker
     public void WorkerDied()
     {
         Alive = false;
         DaysHungry = 0;
     }
 
+    //Method used to set hunger status of worker when fetching data from DB
     public void SetHunger(int num)
     {
         if (num == 0)
@@ -53,6 +64,7 @@ public class Worker
         Hungry = true;
     }
     
+    //Method used to set alive status of worker when fetching data from DB
     public void SetAlive(int num)
     {
         if (num == 0)
@@ -61,13 +73,9 @@ public class Worker
         }
         Alive = true;
     }
-
-    public void WorkerInfo()
-    {
-        Console.WriteLine($"Name: {Name} \nOccupation: {Occupation} \nIs hungry: {Hungry}" +
-                          $"\nIs alive: {Alive} \nBeen hungry for: {DaysHungry} days\n");
-    }
-
+    
+    
+    //Changes worker occupation
     public void ChangeOccupation(OccupationDelegate occupationDelegate)
     {
         _occupationDelegate = occupationDelegate;

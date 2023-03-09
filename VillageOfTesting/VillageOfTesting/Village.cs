@@ -42,13 +42,16 @@ public class Village
         AddStartStats();
     }
 
-    public Village()
+    public Village() //Constructor used in program
     {
         
     }
 
     #endregion
 
+    
+    //Adds a worker, lets user pick what work function the worker should have. Passes that function to the worker class through delegate.
+    //can only be 2 workers per house built.
     public void AddWorker(Worker.OccupationDelegate occupationDelegate) 
     {
         if (Workers.Count >= HouseCount * 2)
@@ -63,6 +66,8 @@ public class Village
         //return true;
     }
 
+    
+    //Adds a new building to the project list if player has enough materials.
     public void AddProject(Building building)
     {
         if (Wood >= building.WoodCost && Metal >= building.MetalCost)
@@ -80,7 +85,9 @@ public class Village
                           $"\n{building.WoodCost} wood \n{building.MetalCost} metal");
         
     }
-
+    
+    
+    //Makes a day pass in the game where all methods are called to play the game.
     public void Day()
     {
         Console.WriteLine($"DAY {DaysPassed + 1}\n-------------------------------------");
@@ -98,24 +105,29 @@ public class Village
         }
     }
 
+    
+    //Can be passed in to delegate, adds food to village.
     public void AddFood()
     {
         Console.WriteLine($"Adding {FoodWorkerAmount} food to village");
         Food += FoodWorkerAmount;
     }
     
+    //Can be passed in to delegate, adds metal to village.
     public void AddMetal()
     {
         Console.WriteLine($"Adding {MetalWorkerAmount} metal to village");
         Metal += MetalWorkerAmount;
     }
     
+    //Can be passed in to delegate, adds wood to village.
     public void AddWood()
     {
         Console.WriteLine($"Adding {WoodWorkerAmount} wood to village");
         Wood += WoodWorkerAmount;
     }
 
+    //Can be passed in to delegate, builds and completes projects.
     public void Build()
     {
         if (Projects.Count > 0)
@@ -133,6 +145,8 @@ public class Village
         Console.WriteLine("Builders can't build! You have no projects.");
     }
 
+    //Feeds all workers as long as player has food, if there is no food all workers go hungry, +1 day per day passed.
+    //If a worker is hungry for 40 days it dies.
     public void FeedWorkers()
     {
         for (int i = 0; i < Workers.Count; i++)
@@ -166,6 +180,7 @@ public class Village
         }
     }
 
+    //Adds 3 houses and 10 food in the beginning of the game to make game easier to play
     public void AddStartStats()
     {
             Food += 10;
@@ -180,6 +195,9 @@ public class Village
             }
     }
 
+    
+    //Checks if a building is complete. If so, it is moved from the project list to the buildings list.
+    //Each building built affects how much resources the village collects per worker.
     public void BuildingIsComplete()
     {
         if (Projects[0].GetType() == typeof(House))
@@ -201,6 +219,8 @@ public class Village
         Win();
     }
     
+    
+    //picks the occupation to represent the worker based on what method the worker delegate gets passed.
     public string SetWorkerOccupation(Worker.OccupationDelegate occupationDelegate)
     {
         if (occupationDelegate == AddMetal)
@@ -213,6 +233,8 @@ public class Village
             return "Builder";
         return "Unemployed";
     }
+    
+    //Buries every worker who dies. Removes them from the worker list. if all workers die the game is lost.
     public void BuryDead()
     {
         int beforeBuriedCount = Workers.Count;
@@ -224,6 +246,8 @@ public class Village
         }
         
     }
+    
+    //Checks if a castle is built. If so, the game is won
     public bool Win()
     {
         foreach (var building in Buildings)
@@ -236,6 +260,7 @@ public class Village
         return false;
     }
 
+    //Adds a worker with a random mwork method passed tot the delegate
     public void AddRandomWorker(RandomNumberGenerator randomNumberGenerator)
     {
         switch (randomNumberGenerator.ReturnRandomNumber())
@@ -254,22 +279,29 @@ public class Village
                 break;
         }
     }
+    
+    //Saves data to DB
     public void SaveProgress()
     {
         DataBaseConnection.Save(Workers, Buildings, Projects, this);
     }
+    
+    //Loads data from DB
     public virtual Village LoadProgress()
     {
         DataBaseConnection.Load(this);
         return this;
     }
 
+    
+    //Changes the worker delegate method
     public void ChangeWorkerOccupation(Worker worker, Worker.OccupationDelegate occupationDelegate)
     {
         worker.ChangeOccupation(occupationDelegate);
         worker.Occupation = SetWorkerOccupation(occupationDelegate);
     }
 
+    
     public Village LoadProgressForMockTest()//Method used for mock test in assignment, has no real use
     {
         DataBaseConnection.LoadForMockTest(this);
